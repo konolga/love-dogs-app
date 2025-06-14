@@ -25,4 +25,10 @@ interface MatchInterface {
     match: string
 }
 
-export { DogInterface, LocationInterface, CoordinatesInterface, MatchInterface };
+interface SearchObjectResponse {
+  next: string
+  resultIds: string [];
+  total: number;
+}
+
+export { DogInterface, LocationInterface, CoordinatesInterface, MatchInterface, SearchObjectResponse };

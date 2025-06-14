@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { LoginForm } from "./components/LoginComponent/LoginForm";
 import { LogoutButton } from "./components/LoginComponent/LogoutButton";
 import { AuthContext } from "./context/authContext";
-import { ListComponent } from "./components/ListComponent/ListComponent";
-import { SearchComponent } from "./components/SearchComponent/SearchComponent";
+import { DogsPage } from "./components/DogsPage/DogsPage";
 
 export const App = () => {
   const { isAuthenticated, isLoading, error } = useContext(AuthContext);
@@ -19,7 +18,7 @@ export const App = () => {
   return (
     <div>
       {isAuthenticated ? <LogoutButton /> : <LoginForm />}
-      {<SearchComponent />}
+      {<DogsPage />}
       {!isAuthenticated && <div>Please log in to access the application.</div>}
     </div>
   );

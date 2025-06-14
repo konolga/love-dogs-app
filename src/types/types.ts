@@ -12,4 +12,18 @@ type DogType = {
   breed: string
 };
 
-export { DogType, UserInfo };
+type SortField = 'breed' | 'name' | 'age';
+type SortDirection = 'asc' | 'desc';
+type SortQuery = `${SortField}:${SortDirection}`;
+
+type SearchParams = {
+  breeds?: string[];
+  zipCodes?: string[];
+  ageMin?: number;
+  ageMax?: number;
+  size?: number;
+  from?: number;
+  sort?: SortQuery;
+};
+
+export { DogType, UserInfo, SearchParams };

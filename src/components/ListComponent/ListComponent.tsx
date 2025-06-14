@@ -9,7 +9,9 @@ export const ListComponent = ({ dogs }: ListComponentProps) => {
   return (
     <div className="list-component">
       {dogs.map((dog) => (
+        <div key={dog.id} className="dog-card">
         <Card dog={dog} />
+        </div>
       ))}
     </div>
   );
