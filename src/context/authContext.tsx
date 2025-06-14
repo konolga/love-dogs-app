@@ -1,6 +1,7 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useState, ReactNode, use } from 'react';
-import { authService, UserInfo } from '../services/authService';
+import React, { createContext, useState, ReactNode, use, useEffect } from 'react';
+import { authService } from "../services/authService";
+import { UserInfo } from "@/types/types";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -8,16 +9,20 @@ interface AuthContextType {
   error: string | null;
   userInfo: UserInfo;
   login: (params: UserInfo) => Promise<void>;
-  logout: (params:  UserInfo) => Promise<void>;
+  logout: (params: UserInfo) => Promise<void>;
 }
 
-export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+export const AuthContext = createContext<AuthContextType>(
+  {} as AuthContextType
+);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
- const [userInfo, setUserInfo] = useState<UserInfo>({ name: '', email: '' });
+  const [userInfo, setUserInfo] = useState<UserInfo>({ name: "", email: "" });
 
   const login = async (params: UserInfo) => {
     setIsLoading(true);
@@ -28,10 +33,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setUserInfo(params);
         setError(null);
       } else {
-        throw new Error('Login failed');
+        throw new Error("Login failed");
       }
     } catch (err) {
-      setError('Invalid credentials');
+      setError("Invalid credentials");
       setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
@@ -44,14 +49,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       await authService.logout(userInfo);
       setIsAuthenticated(false);
     } catch (err) {
-      setError('Logout failed');
+      setError("Logout failed");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, error, userInfo, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, isLoading, error, userInfo, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

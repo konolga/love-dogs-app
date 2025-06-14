@@ -1,17 +1,14 @@
-import { CONSTS } from './consts/endpoints';
-export type UserInfo = {
-    name: string;
-    email: string;
-};
+import { UserInfo } from "../types/types";
+import { CONSTS } from "./consts/endpoints";
 
 export const authService = {
-    async login (body: UserInfo): Promise<boolean> {
+  async login(body: UserInfo): Promise<boolean> {
     try {
       const response = await fetch(`${CONSTS.BASE_URL}/auth/login`, {
-        method: 'POST',
-        credentials: 'include',
+        method: "POST",
+        credentials: "include",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...body }),
       });
@@ -23,11 +20,11 @@ export const authService = {
   async logout(userInfo: UserInfo): Promise<boolean> {
     try {
       if (!userInfo) {
-        throw new Error('User info is required for logout');
+        throw new Error("User info is required for logout");
       }
       const response = await fetch(`${CONSTS.BASE_URL}/auth/logout`, {
-        method: 'POST',
-        credentials: 'include',
+        method: "POST",
+        credentials: "include",
         body: JSON.stringify({ ...userInfo }),
       });
       return response.ok;
@@ -36,4 +33,3 @@ export const authService = {
     }
   },
 };
-

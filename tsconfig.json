@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "esnext",
     "jsx": "react-jsx",
     "strict": true,
@@ -9,9 +9,15 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "Node",
     "baseUrl": ".",
+     "types": ["jest", "@testing-library/jest-dom"],
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+    "exclude": [
+    "node_modules",
+    "**/__tests__/**",
+    "**/__mocks__/**"
+  ]
 }

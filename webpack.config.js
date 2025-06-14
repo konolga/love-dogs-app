@@ -1,7 +1,10 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import path from 'path';
+import  HtmlWebpackPlugin from "html-webpack-plugin";
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-module.exports = {
+
+export default {
   entry: "./src/index.tsx",
   output: { 
     filename: "main.js",
