@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Select from 'react-select';
-import { useBreeds } from '../../hooks/useBreeds';
-import CreatableSelect from 'react-select/creatable';
+import React, { useState } from "react";
+import Select from "react-select";
+import { useBreeds } from "../../hooks/useBreeds";
+import CreatableSelect from "react-select/creatable";
 import { SearchParams } from "@/types/types";
-
+import styles from "./SearchForm.module.css";
 type SearchFormProps = {
   onSearch: (params: SearchParams) => void;
 };
@@ -22,7 +22,7 @@ export const SearchForm = ({ onSearch }: SearchFormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const params: SearchParams = { breeds: [], zipCodes: [],  };;
+    const params: SearchParams = { breeds: [], zipCodes: [] };
     selectedBreeds.forEach((breed) => params.breeds?.push(breed));
     zipCodes.forEach((zip) => params.zipCodes?.push(zip));
     if (ageMin !== null) params.ageMin = ageMin;
@@ -31,52 +31,66 @@ export const SearchForm = ({ onSearch }: SearchFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-component">
-      <Select
-        isMulti
-        options={breedOptions}
-        value={selectedBreeds.map((breed) => ({ value: breed, label: breed }))}
-        onChange={(selectedOptions) => {
-          setSelectedBreeds(selectedOptions.map((option) => option.value));
-        }}
-        isLoading={loading}
-        placeholder="Select breeds..."
-      />
-      <CreatableSelect
-        isMulti
-        options={zipCodes.map((zip) => ({ value: zip, label: zip }))}
-        value={zipCodes.map((zip) => ({ value: zip, label: zip }))}
-        onChange={(selectedOptions) => {
-          setZipCodes(selectedOptions.map((option) => option.value));
-        }}
-        isLoading={loading}
-        placeholder="Select zip codes..."
-      />
-
-      <div>
-        <label>
-          Min age:
-          <input
-            type="number"
-            value={ageMin || ""}
-            onChange={(e) =>
-              setAgeMin(e.target.value ? parseInt(e.target.value) : null)
-            }
-          />
-        </label>
-        <label>
-          Max age:
-          <input
-            type="number"
-            value={ageMax || ""}
-            onChange={(e) =>
-              setAgeMax(e.target.value ? parseInt(e.target.value) : null)
-            }
-          />
-        </label>
+    <form onSubmit={handleSubmit} className={styles.searchForm}>
+      <div className={styles.group}>
+        <label className={styles.label}>Breeds</label>
+        <Select
+          isMulti
+          options={breedOptions}
+          value={selectedBreeds.map((breed) => ({
+            value: breed,
+            label: breed,
+          }))}
+          onChange={(selectedOptions) => {
+            setSelectedBreeds(selectedOptions.map((option) => option.value));
+          }}
+          isLoading={loading}
+          placeholder="Select breeds..."
+          className={styles.reactSelect}
+        />
       </div>
-      <button type="submit">Search</button>
+      <div className={styles.group}>
+        <label className={styles.label}>Zip Codes</label>
+        <CreatableSelect
+          isMulti
+          options={zipCodes.map((zip) => ({ value: zip, label: zip }))}
+          value={zipCodes.map((zip) => ({ value: zip, label: zip }))}
+          onChange={(selectedOptions) => {
+            setZipCodes(selectedOptions.map((option) => option.value));
+          }}
+          isLoading={loading}
+          placeholder="Type zip codes..."
+          className={styles.reactSelect}
+        />
+      </div>
+      <div className={(styles.group, styles.ageGroup)}>
+        <label className={styles.label}>Minimum Age</label>
+        <input
+          type="number"
+          value={ageMin || ""}
+          onChange={(e) =>
+            setAgeMin(e.target.value ? parseInt(e.target.value) : null)
+          }
+          className={styles.input}
+          min="0"
+        />
+      </div>
+      <div className={(styles.group, styles.ageGroup)}>
+        <label className={styles.label}>Maximum Age</label>
+        <input
+          type="number"
+          value={ageMax || ""}
+          onChange={(e) =>
+            setAgeMax(e.target.value ? parseInt(e.target.value) : null)
+          }
+          className={styles.input}
+          min="0"
+        />
+      </div>
+
+      <button type="submit" className={styles.button}>
+        Search Dogs
+      </button>
     </form>
   );
 };
-
