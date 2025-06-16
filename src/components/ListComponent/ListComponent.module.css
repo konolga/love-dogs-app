@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  flex: 1 1 250px; 
+  max-width: 300px; 
+}
+
+.matchButton {
+  background: #ff5a5f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 20px;
+  transition: background 0.2s ease;
+}
+
+.matchButton:hover:not(:disabled) {
+  background: #e04a4f;
+}
+
+.matchButton:disabled {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+.bannerWrapper {
+  height: 60px; /* Same as banner height */
+  margin: 20px;
+  position: relative;
+}
+.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #4caf50;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  animation: fadeInOut 5s ease-out forwards;
+  opacity: 0;
+}
+.banner.show {
+  opacity: 1;
+}

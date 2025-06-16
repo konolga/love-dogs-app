@@ -11,10 +11,6 @@ export const DogsPage = () => {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    // fetchDogs(searchParams);
-  }, []);
-
   const fetchDogs = async (params: SearchParams) => {
     setLoading(true);
     try {

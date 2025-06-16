@@ -1,7 +1,11 @@
 import { SearchParams } from '@/types/types';
 import { CONSTS } from './consts/endpoints';
 import { buildSearchParams } from './helper/helper';
-import { DogInterface, SearchObjectResponse } from "./interfaces/interfaces";
+import {
+  DogInterface,
+  MatchInterface,
+  SearchObjectResponse,
+} from "./interfaces/interfaces";
 
 export const searchService = {
   async getBreeds(): Promise<string[]> {
@@ -16,9 +20,7 @@ export const searchService = {
     }
   },
 
-  async getDogsIds(
-    params: SearchParams
-  ): Promise<SearchObjectResponse> {
+  async getDogsIds(params: SearchParams): Promise<SearchObjectResponse> {
     try {
       const response = await fetch(
         `${CONSTS.BASE_URL}/dogs/search?${buildSearchParams(
@@ -39,25 +41,35 @@ export const searchService = {
     }
   },
 
-  async getDogsByIds(
-    ids: string[]
-  ): Promise<DogInterface[]> {
+  async getDogsByIds(ids: string[]): Promise<DogInterface[]> {
     try {
-      const response = await fetch(
-        `${CONSTS.BASE_URL}/dogs`,
-        {
-          method: "POST",
-          credentials: "include",
-          body: JSON.stringify(ids),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`${CONSTS.BASE_URL}/dogs`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(ids),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       return response.json();
     } catch (error) {
       return [];
     }
   },
 
+  async matchDogsByIds(ids: string[]): Promise<MatchInterface> {
+    try {
+      const response = await fetch(`${CONSTS.BASE_URL}/dogs/match`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(ids),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      return response.json();
+    } catch (error) {
+      return { match: "" };
+    }
+  },
 };
