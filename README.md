@@ -1,4 +1,3 @@
-```markdown
 # Love Dogs App 🐕
 
 A delightful React application for browsing and selecting your favorite dogs. Mark dogs you love with a heart, select multiple favorites, and submit your matches—all with a smooth, responsive interface.
@@ -21,3 +20,8 @@ App is live at: **https://konolga.github.io/love-dogs-app**
 - **TypeScript**
 - **CSS Modules**
 - **GitHub Pages** (for deployment)
+
+
+## Demo
+
+![Demo](https://github.com/konolga/love-dogs-app/blob/921643d511ee8f6a22ffc9cbcd58a6a7dc4bfef1/src/images/Demo.gif?raw=true)
