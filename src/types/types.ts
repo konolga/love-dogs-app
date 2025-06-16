@@ -26,4 +26,4 @@ type SearchParams = {
   sort?: SortQuery;
 };
 
-export { DogType, UserInfo, SearchParams };
+export { DogType, UserInfo, SearchParams, SortQuery, SortField, SortDirection };
