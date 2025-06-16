@@ -2,6 +2,7 @@
 import React, { createContext, useState, ReactNode, use, useEffect } from 'react';
 import { authService } from "../services/authService";
 import { UserInfo } from "@/types/types";
+import { useSessionStorage } from "../hooks/useSessionStorage";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -23,6 +24,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useState<UserInfo>({ name: "", email: "" });
+  const [setSessionFlag, removeSessionFlag, verifySessionFlag] =
+    useSessionStorage();
+
+  useEffect(() => {
+    const alreadyLoggedIn = verifySessionFlag();
+    if (alreadyLoggedIn) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const login = async (params: UserInfo) => {
     setIsLoading(true);
@@ -32,6 +42,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setIsAuthenticated(true);
         setUserInfo(params);
         setError(null);
+        setSessionFlag();
       } else {
         throw new Error("Login failed");
       }
@@ -48,6 +59,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     try {
       await authService.logout(userInfo);
       setIsAuthenticated(false);
+      removeSessionFlag();
     } catch (err) {
       setError("Logout failed");
     } finally {

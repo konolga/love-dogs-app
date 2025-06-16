@@ -47,12 +47,14 @@ export const DogsPage = () => {
     <div>
       <SearchForm onSearch={resetSearch} />
       <ListComponent dogs={dogs} />
-      <Pagination
-        total={total}
-        size={searchParams.size}
-        from={searchParams.from}
-        onPageChange={handlePageChange}
-      />
+      {total > 0 && (
+        <Pagination
+          total={total}
+          size={searchParams.size}
+          from={searchParams.from}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

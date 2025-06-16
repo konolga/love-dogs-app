@@ -1,0 +1,22 @@
+.welcomeBanner {
+  background: #f0f4f8;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.welcomeTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.welcomeDescription {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.welcomeLoginPrompt {
+  font-size: 14px;
+  color: #555;
+}
